@@ -27,7 +27,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     outputs:
-      my-script-file: ${{ steps.my-publish.outputs.script-file }}
+      my-script-file: ${{ steps.my-publish.outputs.my-script-file }}
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -41,7 +41,7 @@ jobs:
         run: npm run build
       - name: Publish JS filename
         id: my-publish
-        run: find dist/assets/*.js -type f -execdir echo '::set-output name=my-script-file::{}' ';'
+        run: find dist/assets/*.js -type f -execdir echo 'my-script-file={}' >> $GITHUB_OUTPUT ';'
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
