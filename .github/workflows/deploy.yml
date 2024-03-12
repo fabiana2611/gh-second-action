@@ -19,9 +19,11 @@ jobs:
         run: npm run lint
   test:
     runs-on: ubuntu-latest
+    environment: testing
     env:
       MY_ENV_TEST: "Testing the envirnment"
       MY_REPOSITORY_SECRET: ${{secrets.MY_REPOSITORY_SECRET}}
+      MY_SECRET_BY_ENV: ${{secrets.MY_SECRET_BY_ENV}}
     steps:
       - name: Get code
         uses: actions/checkout@v3
