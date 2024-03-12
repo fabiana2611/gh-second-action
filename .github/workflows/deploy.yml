@@ -1,5 +1,7 @@
 name: Deploy Project
 on: [push, workflow_dispatch]
+env:
+  MONGODB_DB_NAME: gha-demo
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -17,6 +19,8 @@ jobs:
         run: npm run lint
   test:
     runs-on: ubuntu-latest
+    env:
+      MY_ENV_TEST: "Testing the envirnment"
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -33,6 +37,10 @@ jobs:
         run: npm ci
       - name: Run tests
         run: npm test
+      - name: Use ENV
+        run: echo "Here is it:" $MY_ENV_TEST
+      - name: Use ENV
+        run: echo "Here is it (env.MY_ENV_TEST):" ${{env.MY_ENV_TEST}}
   deploy:
     needs: test
     runs-on: ubuntu-latest
@@ -62,6 +70,10 @@ jobs:
         with:
           name: my-dist-file
           path: dist
+      - name: Use ENV
+        run: echo "Here is not it:" ${{env.MONGODB_DB_NAME}}
+      - name: Use ENV
+        run: echo "Here is it:" $MONGODB_DB_NAME
   download:
     needs: deploy
     runs-on: ubuntu-latest
