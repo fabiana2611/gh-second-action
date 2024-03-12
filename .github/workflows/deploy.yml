@@ -45,6 +45,7 @@ jobs:
           echo "Here is it:" $MY_ENV_TEST
           echo "Here is it (env.MY_ENV_TEST):" ${{env.MY_ENV_TEST}}
           echo "Here is it (env.MY_REPOSITORY_SECRET):" ${{env.MY_REPOSITORY_SECRET}}
+          echo "Here is it (env.MY_SECRET_BY_ENV):" ${{env.MY_SECRET_BY_ENV}}
   deploy:
     needs: test
     runs-on: ubuntu-latest
