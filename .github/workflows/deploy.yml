@@ -38,9 +38,9 @@ jobs:
       - name: Run tests
         run: npm test
       - name: Use ENV
-        run: echo "Here is it:" $MY_ENV_TEST
-      - name: Use ENV
-        run: echo "Here is it (env.MY_ENV_TEST):" ${{env.MY_ENV_TEST}}
+        run: | 
+          echo "Here is not it:" $MY_ENV_TEST
+          echo "Here is it (env.MY_ENV_TEST):" ${{env.MY_ENV_TEST}}
   deploy:
     needs: test
     runs-on: ubuntu-latest
@@ -71,9 +71,9 @@ jobs:
           name: my-dist-file
           path: dist
       - name: Use ENV
-        run: echo "Here is not it:" ${{env.MONGODB_DB_NAME}}
-      - name: Use ENV
-        run: echo "Here is it:" $MONGODB_DB_NAME
+        run: |
+          echo "Here is not it:" ${{env.MONGODB_DB_NAME}}
+          echo "Here is it:" $MONGODB_DB_NAME
   download:
     needs: deploy
     runs-on: ubuntu-latest
