@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MY_ENV_TEST: "Testing the envirnment"
+      MY_REPOSITORY_SECRET: ${{secrets.MY_REPOSITORY_SECRET}}
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -39,8 +40,9 @@ jobs:
         run: npm test
       - name: Use ENV
         run: | 
-          echo "Here is not it:" $MY_ENV_TEST
+          echo "Here is it:" $MY_ENV_TEST
           echo "Here is it (env.MY_ENV_TEST):" ${{env.MY_ENV_TEST}}
+          echo "Here is it (env.MY_REPOSITORY_SECRET):" ${{env.MY_REPOSITORY_SECRET}}
   deploy:
     needs: test
     runs-on: ubuntu-latest
@@ -72,7 +74,7 @@ jobs:
           path: dist
       - name: Use ENV
         run: |
-          echo "Here is not it:" ${{env.MONGODB_DB_NAME}}
+          echo "Here is it:" ${{env.MONGODB_DB_NAME}}
           echo "Here is it:" $MONGODB_DB_NAME
   download:
     needs: deploy
