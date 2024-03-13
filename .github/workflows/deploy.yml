@@ -16,7 +16,12 @@ jobs:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Lint
+        id: run-lint-id
         run: npm run lint
+      - name: Run Condition If fail
+        if: steps.run-lint-id.outcome == 'failure'
+        run: echo "Executed in case of fail..."
+
   test:
     runs-on: ubuntu-latest
     environment: testing
@@ -40,6 +45,11 @@ jobs:
         run: npm ci
       - name: Run tests
         run: npm test
+      - name: Upload test report
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-report
+          path: test.json
       - name: Use ENV
         run: | 
           echo "Here is it:" $MY_ENV_TEST
