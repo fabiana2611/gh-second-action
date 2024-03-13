@@ -108,3 +108,12 @@ jobs:
     steps:
       - name: Output Github context
         run: echo "${{ toJSON(github) }}"
+  report:
+    needs: [lint, test, deploy, download]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Error Report - Output information
+        run: |
+          echo "something went wrong"
+          echo "${{ github }}
