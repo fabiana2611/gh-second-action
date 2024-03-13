@@ -116,4 +116,4 @@ jobs:
       - name: Error Report - Output information
         run: |
           echo "something went wrong"
-          echo "${{ github }}
+          echo "${{ github }}"
