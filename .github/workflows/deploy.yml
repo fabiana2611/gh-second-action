@@ -19,7 +19,7 @@ jobs:
         id: run-lint-id
         run: npm run lint
       - name: Run Condition If fail
-        if: steps.run-lint-id.outcome == 'failure'
+        if: failure() && steps.run-lint-id.outcome == 'failure'
         run: echo "Executed in case of fail..."
 
   test:
